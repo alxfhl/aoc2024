@@ -9,38 +9,33 @@ import org.junit.jupiter.api.TestMethodOrder;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class Day02Test {
+public class Day09Test {
 
     String example = """
-            7 6 4 2 1
-            1 2 7 8 9
-            9 7 6 2 1
-            1 3 2 4 5
-            8 6 4 4 1
-            1 3 6 7 9
+            
             """;
 
     @Test
     @Order(1)
     public void examplePart1() {
-        assertThat(Day02.getPart1(Input.fromString(example))).isEqualTo(2);
+        assertThat(Day09.getPart1(Input.fromString(example))).isEqualTo(-1);
     }
 
     @Test
     @Order(2)
     public void puzzlePart1() {
-        assertThat(Day02.getPart1(Input.forDay(Day02.class))).isEqualTo(306);
+        assertThat(Day09.getPart1(Input.forDay(Day09.class))).isEqualTo(-1);
     }
 
     @Test
     @Order(3)
     public void examplePart2() {
-        assertThat(Day02.getPart2(Input.fromString(example))).isEqualTo(4);
+        assertThat(Day09.getPart2(Input.fromString(example))).isEqualTo(-1);
     }
 
     @Test
     @Order(4)
     public void puzzlePart2() {
-        assertThat(Day02.getPart2(Input.forDay(Day02.class))).isEqualTo(366);
+        assertThat(Day09.getPart2(Input.forDay(Day09.class))).isEqualTo(-1);
     }
 }
