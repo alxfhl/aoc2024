@@ -26,6 +26,15 @@ public record Coord2D(long x, long y) {
     }
 
     public List<Coord2D> getNeighbors() {
-        return Arrays.stream(Direction.values()).map(dir -> new Coord2D(x + dir.dx(), y + dir.dy())).toList();
+        return Arrays.stream(Direction.values())
+                .map(dir -> new Coord2D(x + dir.dx(), y + dir.dy())).toList();
+    }
+
+    public Coord2D minus(Coord2D other) {
+        return new Coord2D(x - other.x(), y - other.y());
+    }
+
+    public Coord2D plus(Coord2D other) {
+        return new Coord2D(x + other.x(), y + other.y());
     }
 }

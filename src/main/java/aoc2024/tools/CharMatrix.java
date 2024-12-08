@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -133,9 +134,17 @@ public class CharMatrix {
 
     private int getIndex(int x, int y) {
         if (isOutside(x, y)) {
-            throw new ArrayIndexOutOfBoundsException("(" + x + "," + y + ") is outside of (0.." + (width - 1) + ",0.." + (height - 1) + ")");
+            throw new ArrayIndexOutOfBoundsException(
+                    "(" + x + "," + y + ") is outside of (0.." + (width - 1) + ",0.." + (height - 1) + ")");
         }
         return y * width + x;
+    }
+
+    private Coord2D getCoord(int index) {
+        if (index < 0 || index >= chars.length) {
+            throw new ArrayIndexOutOfBoundsException(index + " is out of bounds 0.." + (chars.length - 1));
+        }
+        return new Coord2D(index % width, index / width);
     }
 
     public boolean isInside(Coord2D coord2D) {
@@ -179,5 +188,24 @@ public class CharMatrix {
                 chars[i] = replacement;
             }
         }
+    }
+
+    public Coord2D indexOf(char search) {
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == search) {
+                return getCoord(i);
+            }
+        }
+        return null;
+    }
+
+    public List<Coord2D> findAll(char search) {
+        List<Coord2D> result = new ArrayList<>();
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == search) {
+                result.add(getCoord(i));
+            }
+        }
+        return result;
     }
 }

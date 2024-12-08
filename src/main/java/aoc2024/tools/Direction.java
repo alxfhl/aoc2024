@@ -7,13 +7,14 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 public enum Direction {
-    UP(0, -1),
-    DOWN(0, 1),
-    LEFT(-1, 0),
-    RIGHT(1, 0);
+    UP(0, -1, '^'),
+    DOWN(0, 1, 'v'),
+    LEFT(-1, 0, '<'),
+    RIGHT(1, 0, '>');
 
     private final int dx;
     private final int dy;
+    private final char symbol;
 
     public int dx() {
         return dx;
@@ -21,6 +22,10 @@ public enum Direction {
 
     public int dy() {
         return dy;
+    }
+
+    public char symbol() {
+        return symbol;
     }
 
     public Direction turnLeft() {
