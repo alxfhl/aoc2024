@@ -37,4 +37,8 @@ public record Coord2D(long x, long y) {
     public Coord2D plus(Coord2D other) {
         return new Coord2D(x + other.x(), y + other.y());
     }
+
+    public Coord2D multiply(long factor) {
+        return new Coord2D(x * factor, y * factor);
+    }
 }

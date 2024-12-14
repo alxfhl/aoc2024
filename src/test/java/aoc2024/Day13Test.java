@@ -44,6 +44,6 @@ public class Day13Test {
     @Test
     @Order(4)
     public void puzzlePart2() {
-        assertThat(Day13.getPart2(Input.forDay(Day13.class))).isEqualTo(-1);
+        assertThat(Day13.getPart2(Input.forDay(Day13.class))).isEqualTo(92572057880885L);
     }
 }
