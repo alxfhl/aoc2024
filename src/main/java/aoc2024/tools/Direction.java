@@ -25,6 +25,15 @@ public enum Direction {
         throw new IllegalArgumentException("invalid direction");
     }
 
+    public static Direction valueOf(char symbol) {
+        for (Direction dir : values()) {
+            if (dir.symbol == symbol) {
+                return dir;
+            }
+        }
+        throw new IllegalArgumentException("invalid direction");
+    }
+
     public int dx() {
         return dx;
     }
