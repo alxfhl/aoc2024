@@ -24,4 +24,26 @@ public class Parse {
         }
         return result;
     }
+
+    /**
+     * Split list of input lines by empty lines into non-empty blocks.
+     */
+    public static List<List<String>> splitIntoBlocks(List<String> lines) {
+        List<List<String>> blocks = new ArrayList<>();
+        List<String> currentBlock = new ArrayList<>();
+        for (String line : lines) {
+            if (line.isBlank()) {
+                if (!currentBlock.isEmpty()) {
+                    blocks.add(currentBlock);
+                    currentBlock = new ArrayList<>();
+                }
+            } else {
+                currentBlock.add(line);
+            }
+        }
+        if (!currentBlock.isEmpty()) {
+            blocks.add(currentBlock);
+        }
+        return blocks;
+    }
 }

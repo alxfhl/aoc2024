@@ -12,30 +12,56 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class Day25Test {
 
     String example = """
+            #####
+            .####
+            .####
+            .####
+            .#.#.
+            .#...
+            .....
             
+            #####
+            ##.##
+            .#.##
+            ...##
+            ...#.
+            ...#.
+            .....
+            
+            .....
+            #....
+            #....
+            #...#
+            #.#.#
+            #.###
+            #####
+            
+            .....
+            .....
+            #.#..
+            ###..
+            ###.#
+            ###.#
+            #####
+            
+            .....
+            .....
+            .....
+            #....
+            #.#..
+            #.#.#
+            #####
             """;
 
     @Test
     @Order(1)
     public void examplePart1() {
-        assertThat(Day25.getPart1(Input.fromString(example))).isEqualTo(-1);
+        assertThat(Day25.getPart1(Input.fromString(example))).isEqualTo(3);
     }
 
     @Test
     @Order(2)
     public void puzzlePart1() {
-        assertThat(Day25.getPart1(Input.forDay(Day25.class))).isEqualTo(-1);
-    }
-
-    @Test
-    @Order(3)
-    public void examplePart2() {
-        assertThat(Day25.getPart2(Input.fromString(example))).isEqualTo(-1);
-    }
-
-    @Test
-    @Order(4)
-    public void puzzlePart2() {
-        assertThat(Day25.getPart2(Input.forDay(Day25.class))).isEqualTo(-1);
+        assertThat(Day25.getPart1(Input.forDay(Day25.class))).isEqualTo(3065);
     }
 }
