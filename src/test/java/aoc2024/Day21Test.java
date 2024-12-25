@@ -28,13 +28,7 @@ public class Day21Test {
     @Test
     @Order(2)
     public void puzzlePart1() {
-        assertThat(Day21.getPart1(Input.forDay(Day21.class))).isLessThan(227898);
-    }
-
-    @Test
-    @Order(3)
-    public void examplePart2() {
-        assertThat(Day21.getPart2(Input.fromString(example))).isEqualTo(-1);
+        assertThat(Day21.getPart1(Input.forDay(Day21.class))).isEqualTo(224326);
     }
 
     @Test
