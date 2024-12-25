@@ -1,7 +1,7 @@
 package aoc2024;
 
 import aoc2024.tools.CharMatrix;
-import aoc2024.tools.Coord2D;
+import aoc2024.tools.Coord;
 import aoc2024.tools.Direction;
 
 import java.util.*;
@@ -10,23 +10,23 @@ public class Day10 {
 
     public static long getPart1(List<String> lines) {
         CharMatrix matrix = CharMatrix.valueOf(lines);
-        List<Coord2D> candidates = matrix.findAll('0');
-        Map<Coord2D, Integer> trailheads = new HashMap<>();
-        for (Coord2D candidate : candidates) {
-            Set<Coord2D> summits = new HashSet<>();
+        List<Coord> candidates = matrix.findAll('0');
+        Map<Coord, Integer> trailheads = new HashMap<>();
+        for (Coord candidate : candidates) {
+            Set<Coord> summits = new HashSet<>();
 
-            Set<Coord2D> positions = new HashSet<>();
+            Set<Coord> positions = new HashSet<>();
             positions.add(candidate);
-            Set<Coord2D> nextPositions = new HashSet<>();
+            Set<Coord> nextPositions = new HashSet<>();
             while (!positions.isEmpty()) {
-                for (Coord2D pos : positions) {
+                for (Coord pos : positions) {
                     char height = matrix.get(pos);
                     if (height == '9') {
                         summits.add(pos);
                         continue;
                     }
                     for (Direction dir : Direction.values()) {
-                        Coord2D neighbor = pos.go(dir);
+                        Coord neighbor = pos.go(dir);
                         if (matrix.isInside(neighbor) && matrix.get(neighbor) == (height + 1)) {
                             nextPositions.add(neighbor);
                         }
@@ -46,17 +46,17 @@ public class Day10 {
 
     public static long getPart2(List<String> lines) {
         CharMatrix matrix = CharMatrix.valueOf(lines);
-        List<Coord2D> candidates = matrix.findAll('0');
-        Map<Coord2D, Long> trailheads = new HashMap<>();
-        for (Coord2D candidate : candidates) {
-            Map<Coord2D, Long> summits = new HashMap<>();
+        List<Coord> candidates = matrix.findAll('0');
+        Map<Coord, Long> trailheads = new HashMap<>();
+        for (Coord candidate : candidates) {
+            Map<Coord, Long> summits = new HashMap<>();
 
-            Map<Coord2D, Long> positions = new HashMap<>();
+            Map<Coord, Long> positions = new HashMap<>();
             positions.put(candidate, 1L);
-            Map<Coord2D, Long> nextPositions = new HashMap<>();
+            Map<Coord, Long> nextPositions = new HashMap<>();
             while (!positions.isEmpty()) {
                 for (var entry : positions.entrySet()) {
-                    Coord2D pos = entry.getKey();
+                    Coord pos = entry.getKey();
                     long trails = entry.getValue();
                     char height = matrix.get(pos);
 
@@ -66,7 +66,7 @@ public class Day10 {
                     }
 
                     for (Direction dir : Direction.values()) {
-                        Coord2D neighbor = pos.go(dir);
+                        Coord neighbor = pos.go(dir);
                         if (matrix.isInside(neighbor) && matrix.get(neighbor) == (height + 1)) {
                             nextPositions.compute(neighbor, (p, value) -> value == null
                                     ? trails

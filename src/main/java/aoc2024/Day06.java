@@ -1,7 +1,7 @@
 package aoc2024;
 
 import aoc2024.tools.CharMatrix;
-import aoc2024.tools.Coord2D;
+import aoc2024.tools.Coord;
 import aoc2024.tools.Direction;
 
 import java.util.EnumMap;
@@ -12,7 +12,7 @@ public class Day06 {
     public static long getPart1(List<String> lines) {
         CharMatrix matrix = CharMatrix.valueOf(lines);
         Direction dir = null;
-        Coord2D pos = null;
+        Coord pos = null;
         for (Direction direction : Direction.values()) {
             pos = matrix.indexOf(direction.symbol());
             if (pos != null) {
@@ -25,7 +25,7 @@ public class Day06 {
         }
         while (true) {
             matrix.set(pos, 'X');
-            Coord2D next = pos.go(dir);
+            Coord next = pos.go(dir);
             if (matrix.isOutside(next)) {
                 break;
             }
@@ -42,7 +42,7 @@ public class Day06 {
     public static long getPart2(List<String> lines) {
         CharMatrix matrix = CharMatrix.valueOf(lines);
         Direction startDir = null;
-        Coord2D start = null;
+        Coord start = null;
         for (Direction direction : Direction.values()) {
             start = matrix.indexOf(direction.symbol());
             if (start != null) {
@@ -65,7 +65,7 @@ public class Day06 {
                     history.put(direction, new CharMatrix(matrix.getWidth(), matrix.getHeight(), ' '));
                 }
                 Direction dir = startDir;
-                Coord2D pos = start;
+                Coord pos = start;
                 while (true) {
                     if (history.get(dir).get(pos) == 'X') {
                         // loop detected
@@ -73,7 +73,7 @@ public class Day06 {
                         break;
                     }
                     history.get(dir).set(pos, 'X');
-                    Coord2D next = pos.go(dir);
+                    Coord next = pos.go(dir);
                     if (matrix.isOutside(next)) {
                         break;
                     }

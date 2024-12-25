@@ -1,7 +1,7 @@
 package aoc2024;
 
 import aoc2024.tools.CharMatrix;
-import aoc2024.tools.Coord2D;
+import aoc2024.tools.Coord;
 import aoc2024.tools.Parse;
 
 import java.util.List;
@@ -14,8 +14,8 @@ public class Day21 {
 
     static class Robot {
         final CharMatrix pad;
-        Coord2D position;
-        Coord2D forbidden;
+        Coord position;
+        Coord forbidden;
 
         Robot(CharMatrix pad) {
             this.pad = pad;
@@ -24,7 +24,7 @@ public class Day21 {
         }
 
         public String getSequence(char ch) {
-            Coord2D target = pad.indexOf(ch);
+            Coord target = pad.indexOf(ch);
             if (target.equals(position)) {
                 return "A";
             }
@@ -39,7 +39,7 @@ public class Day21 {
                     return (target.x() < position.x() ? "<" : ">").repeat(deltaX)
                             + "A";
                 }
-                if (!forbidden.equals(new Coord2D(target.x(), position.y()))) {
+                if (!forbidden.equals(new Coord(target.x(), position.y()))) {
                     // adjust x first
                     return (target.x() < position.x() ? "<" : ">").repeat(deltaX)
                             + (target.y() < position.y() ? "^" : "v").repeat(deltaY)

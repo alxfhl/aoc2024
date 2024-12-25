@@ -1,7 +1,7 @@
 package aoc2024;
 
 import aoc2024.tools.CharMatrix;
-import aoc2024.tools.Coord2D;
+import aoc2024.tools.Coord;
 import aoc2024.tools.Parse;
 
 import java.util.HashMap;
@@ -17,18 +17,18 @@ public class Day18 {
             List<Integer> integers = Parse.getIntegers(lines.get(i));
             matrix.set(integers.getFirst(), integers.getLast(), '#');
         }
-        return shortestPath(matrix, new Coord2D(0, 0), new Coord2D(width - 1, height - 1));
+        return shortestPath(matrix, new Coord(0, 0), new Coord(width - 1, height - 1));
     }
 
-    private static Integer shortestPath(CharMatrix matrix, Coord2D start, Coord2D goal) {
-        Map<Coord2D, Integer> shortestPaths = new HashMap<>();
-        var todo = new LinkedHashSet<Coord2D>();
+    private static Integer shortestPath(CharMatrix matrix, Coord start, Coord goal) {
+        Map<Coord, Integer> shortestPaths = new HashMap<>();
+        var todo = new LinkedHashSet<Coord>();
         todo.add(start);
         shortestPaths.put(start, 0);
         while (!todo.isEmpty()) {
-            Coord2D pos = todo.removeFirst();
+            Coord pos = todo.removeFirst();
             int length = shortestPaths.get(pos) + 1;
-            for (Coord2D neighbor : pos.getNeighbors()) {
+            for (Coord neighbor : pos.getNeighbors()) {
                 if (matrix.isInside(neighbor) && matrix.get(neighbor) != '#') {
                     if (!shortestPaths.containsKey(neighbor) || shortestPaths.get(neighbor) > length) {
                         shortestPaths.put(neighbor, length);
@@ -50,7 +50,7 @@ public class Day18 {
         for (int i = blocks; i < lines.size(); i++) {
             List<Integer> integers = Parse.getIntegers(lines.get(i));
             matrix.set(integers.getFirst(), integers.getLast(), '#');
-            if (shortestPath(matrix, new Coord2D(0, 0), new Coord2D(width - 1, height - 1)) == null) {
+            if (shortestPath(matrix, new Coord(0, 0), new Coord(width - 1, height - 1)) == null) {
                 return integers.getFirst() + "," + integers.getLast();
             }
         }

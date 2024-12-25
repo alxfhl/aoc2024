@@ -1,7 +1,7 @@
 package aoc2024;
 
 import aoc2024.tools.CharMatrix;
-import aoc2024.tools.Coord2D;
+import aoc2024.tools.Coord;
 import aoc2024.tools.Direction;
 
 import java.util.ArrayList;
@@ -16,12 +16,12 @@ public class Day15 {
     public static long getPart1(List<String> lines) {
         CharMatrix matrix = getMatrix(lines);
         List<Direction> commands = getCommands(lines);
-        Coord2D pos = matrix.indexOf('@');
+        Coord pos = matrix.indexOf('@');
         matrix.set(pos, '.');
         for (Direction command : commands) {
             int move = 0;
-            Coord2D neighbor = pos;
-            for (int i = 1; ; i++) {
+            Coord neighbor = pos;
+            while (true) {
                 neighbor = neighbor.go(command);
                 char ch = matrix.get(neighbor);
                 if (ch == '.') {
@@ -46,13 +46,13 @@ public class Day15 {
         CharMatrix matrix = widenMatrix(getMatrix(lines));
         List<Direction> commands = getCommands(lines);
         for (Direction command : commands) {
-            List<Coord2D> moving = new ArrayList<>();
+            List<Coord> moving = new ArrayList<>();
             boolean canMove = true;
-            var unclear = new LinkedHashSet<Coord2D>();
+            var unclear = new LinkedHashSet<Coord>();
             unclear.add(matrix.indexOf('@'));
             while (!unclear.isEmpty()) {
-                Coord2D candidate = unclear.removeFirst();
-                Coord2D target = candidate.go(command);
+                Coord candidate = unclear.removeFirst();
+                Coord target = candidate.go(command);
                 char neighbor = matrix.get(target);
                 if (neighbor == '.') {
                     moving.add(candidate);
@@ -64,11 +64,11 @@ public class Day15 {
                 }
                 if (neighbor == '[') {
                     unclear.add(target);
-                    unclear.add(new Coord2D(target.x() + 1, target.y()));
+                    unclear.add(new Coord(target.x() + 1, target.y()));
                     moving.add(candidate);
                 }
                 if (neighbor == ']') {
-                    unclear.add(new Coord2D(target.x() - 1, target.y()));
+                    unclear.add(new Coord(target.x() - 1, target.y()));
                     unclear.add(target);
                     moving.add(candidate);
                 }
@@ -76,12 +76,12 @@ public class Day15 {
             }
             if (canMove) {
                 moving.sort(switch (command) {
-                    case LEFT -> comparing(Coord2D::x);
-                    case RIGHT -> comparing(Coord2D::x).reversed();
-                    case UP -> comparing(Coord2D::y);
-                    case DOWN -> comparing(Coord2D::y).reversed();
+                    case LEFT -> comparing(Coord::x);
+                    case RIGHT -> comparing(Coord::x).reversed();
+                    case UP -> comparing(Coord::y);
+                    case DOWN -> comparing(Coord::y).reversed();
                 });
-                for (Coord2D block : moving) {
+                for (Coord block : moving) {
                     matrix.set(block.go(command), matrix.get(block));
                     matrix.set(block, '.');
                 }

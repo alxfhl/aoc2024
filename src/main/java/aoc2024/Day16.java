@@ -1,7 +1,7 @@
 package aoc2024;
 
 import aoc2024.tools.CharMatrix;
-import aoc2024.tools.Coord2D;
+import aoc2024.tools.Coord;
 import aoc2024.tools.Direction;
 
 import java.util.*;
@@ -13,7 +13,7 @@ public class Day16 {
     private static final int MOVE_COST = 1;
     private static final int TURN_COST = 1000;
 
-    record Orientation(Coord2D pos, Direction dir) {
+    record Orientation(Coord pos, Direction dir) {
 
     }
 
@@ -41,8 +41,8 @@ public class Day16 {
 
     public static long getPart1(List<String> lines) {
         CharMatrix matrix = CharMatrix.valueOf(lines);
-        Coord2D goal = matrix.indexOf('E');
-        Coord2D start = matrix.indexOf('S');
+        Coord goal = matrix.indexOf('E');
+        Coord start = matrix.indexOf('S');
         matrix.set(goal, '.');
         matrix.set(start, '.');
 
@@ -54,7 +54,7 @@ public class Day16 {
                 .map(State::score).min(Integer::compareTo).orElse(Integer.MAX_VALUE);
     }
 
-    private static Map<Orientation, State> solve(Coord2D start, CharMatrix matrix) {
+    private static Map<Orientation, State> solve(Coord start, CharMatrix matrix) {
         var todo = new PriorityQueue<>(Comparator.comparing(State::score));
         todo.add(new State(new Orientation(start, Direction.RIGHT), 0, List.of()));
         Map<Orientation, State> scores = new HashMap<>();
@@ -85,8 +85,8 @@ public class Day16 {
 
     public static long getPart2(List<String> lines) {
         CharMatrix matrix = CharMatrix.valueOf(lines);
-        Coord2D goal = matrix.indexOf('E');
-        Coord2D start = matrix.indexOf('S');
+        Coord goal = matrix.indexOf('E');
+        Coord start = matrix.indexOf('S');
         matrix.set(goal, '.');
         matrix.set(start, '.');
 
@@ -102,7 +102,7 @@ public class Day16 {
                 .map(scores::get)
                 .filter(state -> state.score == bestScore)
                 .collect(Collectors.toCollection(ArrayList::new));
-        Set<Coord2D> tiles = new HashSet<>();
+        Set<Coord> tiles = new HashSet<>();
         while (!todo.isEmpty()) {
             State state = todo.removeLast();
             tiles.add(state.orientation.pos);

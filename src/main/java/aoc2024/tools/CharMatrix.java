@@ -102,16 +102,16 @@ public class CharMatrix {
         return matrix;
     }
 
-    public void set(Coord2D coord2D, char ch) {
-        set((int) coord2D.x(), (int) coord2D.y(), ch);
+    public void set(Coord coord, char ch) {
+        set((int) coord.x(), (int) coord.y(), ch);
     }
 
     public void set(int x, int y, char ch) {
         chars[getIndex(x, y)] = ch;
     }
 
-    public char get(Coord2D coord2D) {
-        return get((int) coord2D.x(), (int) coord2D.y());
+    public char get(Coord coord) {
+        return get((int) coord.x(), (int) coord.y());
     }
 
     public char get(int x, int y) {
@@ -140,19 +140,19 @@ public class CharMatrix {
         return y * width + x;
     }
 
-    private Coord2D getCoord(int index) {
+    private Coord getCoord(int index) {
         if (index < 0 || index >= chars.length) {
             throw new ArrayIndexOutOfBoundsException(index + " is out of bounds 0.." + (chars.length - 1));
         }
-        return new Coord2D(index % width, index / width);
+        return new Coord(index % width, index / width);
     }
 
-    public boolean isInside(Coord2D coord2D) {
-        return isInside((int) coord2D.x(), (int) coord2D.y());
+    public boolean isInside(Coord coord) {
+        return isInside((int) coord.x(), (int) coord.y());
     }
 
-    public boolean isOutside(Coord2D coord2D) {
-        return isOutside((int) coord2D.x(), (int) coord2D.y());
+    public boolean isOutside(Coord coord) {
+        return isOutside((int) coord.x(), (int) coord.y());
     }
 
     public boolean isInside(int x, int y) {
@@ -190,7 +190,7 @@ public class CharMatrix {
         }
     }
 
-    public Coord2D indexOf(char search) {
+    public Coord indexOf(char search) {
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] == search) {
                 return getCoord(i);
@@ -199,8 +199,8 @@ public class CharMatrix {
         return null;
     }
 
-    public List<Coord2D> findAll(char search) {
-        List<Coord2D> result = new ArrayList<>();
+    public List<Coord> findAll(char search) {
+        List<Coord> result = new ArrayList<>();
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] == search) {
                 result.add(getCoord(i));

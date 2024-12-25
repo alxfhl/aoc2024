@@ -16,7 +16,7 @@ public enum Direction {
     private final int dy;
     private final char symbol;
 
-    public static Direction valueOf(Coord2D from, Coord2D to) {
+    public static Direction valueOf(Coord from, Coord to) {
         for (Direction dir : values()) {
             if (from.go(dir).equals(to)) {
                 return dir;

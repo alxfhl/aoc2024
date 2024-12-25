@@ -1,7 +1,7 @@
 package aoc2024;
 
 import aoc2024.tools.CharMatrix;
-import aoc2024.tools.Coord2D;
+import aoc2024.tools.Coord;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,13 +19,13 @@ public class Day08 {
                 if (!done.add(frequency) || (!Character.isDigit(frequency) && !Character.isAlphabetic(frequency))) {
                     continue;
                 }
-                List<Coord2D> coords = matrix.findAll(frequency);
+                List<Coord> coords = matrix.findAll(frequency);
                 for (int first = 0; first < coords.size(); first++) {
                     for (int second = first + 1; second < coords.size(); second++) {
-                        Coord2D c1 = coords.get(first);
-                        Coord2D c2 = coords.get(second);
-                        Coord2D diff = c2.minus(c1);
-                        Coord2D antinode = c1.minus(diff);
+                        Coord c1 = coords.get(first);
+                        Coord c2 = coords.get(second);
+                        Coord diff = c2.minus(c1);
+                        Coord antinode = c1.minus(diff);
                         if (antinodes.isInside(antinode)) {
                             antinodes.set(antinode, '#');
                         }
@@ -51,16 +51,16 @@ public class Day08 {
                 if (!done.add(frequency) || (!Character.isDigit(frequency) && !Character.isAlphabetic(frequency))) {
                     continue;
                 }
-                List<Coord2D> coords = matrix.findAll(frequency);
+                List<Coord> coords = matrix.findAll(frequency);
                 if (coords.size() < 2) {
                     continue;
                 }
                 for (int first = 0; first < coords.size(); first++) {
                     for (int second = first + 1; second < coords.size(); second++) {
-                        Coord2D c1 = coords.get(first);
-                        Coord2D c2 = coords.get(second);
-                        Coord2D pos = c1;
-                        Coord2D diff = c1.minus(c2);
+                        Coord c1 = coords.get(first);
+                        Coord c2 = coords.get(second);
+                        Coord pos = c1;
+                        Coord diff = c1.minus(c2);
                         while (antinodes.isInside(pos)) {
                             antinodes.set(pos, '#');
                             pos = pos.plus(diff);

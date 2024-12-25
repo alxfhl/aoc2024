@@ -1,7 +1,7 @@
 package aoc2024;
 
 import aoc2024.tools.CharMatrix;
-import aoc2024.tools.Coord2D;
+import aoc2024.tools.Coord;
 import aoc2024.tools.Direction;
 
 import java.util.*;
@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 public class Day12 {
 
-    record Plot(char plant, Coord2D pos) {
+    record Plot(char plant, Coord pos) {
 
         public List<Plot> getNeighbors() {
             return pos.getNeighbors().stream()
@@ -17,7 +17,7 @@ public class Day12 {
         }
     }
 
-    record Fence(Coord2D pos, Direction side) {
+    record Fence(Coord pos, Direction side) {
         public List<Fence> getNeighbors() {
             return List.of(new Fence(pos.go(side.turnRight()), side), new Fence(pos.go(side.turnLeft()), side));
         }
@@ -47,7 +47,6 @@ public class Day12 {
         for (Set<Plot> region : regions) {
             long area = region.size();
             SequencedSet<Fence> fenceParts = new LinkedHashSet<>();
-            long perimeter = 0;
             for (Plot plot : region) {
                 for (Plot neighbor : plot.getNeighbors()) {
                     if (!region.contains(neighbor)) {
@@ -66,7 +65,7 @@ public class Day12 {
         final SequencedSet<Plot> plots = new LinkedHashSet<>();
         for (int x = 0; x < matrix.getWidth(); x++) {
             for (int y = 0; y < matrix.getHeight(); y++) {
-                plots.add(new Plot(matrix.get(x, y), new Coord2D(x, y)));
+                plots.add(new Plot(matrix.get(x, y), new Coord(x, y)));
             }
         }
         return partition(plots, Plot::getNeighbors);

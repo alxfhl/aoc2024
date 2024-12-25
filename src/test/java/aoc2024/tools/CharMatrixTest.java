@@ -109,18 +109,18 @@ class CharMatrixTest {
         assertThat(matrix.isOutside(1, 3)).isTrue();
         assertThat(matrix.isOutside(3, 1)).isTrue();
 
-        assertThat(matrix.isInside(new Coord2D(0, 0))).isTrue();
-        assertThat(matrix.isInside(new Coord2D(2, 2))).isTrue();
-        assertThat(matrix.isInside(new Coord2D(-1, 2))).isFalse();
-        assertThat(matrix.isInside(new Coord2D(1, -1))).isFalse();
-        assertThat(matrix.isInside(new Coord2D(1, 3))).isFalse();
-        assertThat(matrix.isInside(new Coord2D(3, 1))).isFalse();
+        assertThat(matrix.isInside(new Coord(0, 0))).isTrue();
+        assertThat(matrix.isInside(new Coord(2, 2))).isTrue();
+        assertThat(matrix.isInside(new Coord(-1, 2))).isFalse();
+        assertThat(matrix.isInside(new Coord(1, -1))).isFalse();
+        assertThat(matrix.isInside(new Coord(1, 3))).isFalse();
+        assertThat(matrix.isInside(new Coord(3, 1))).isFalse();
 
-        assertThat(matrix.isOutside(new Coord2D(0, 0))).isFalse();
-        assertThat(matrix.isOutside(new Coord2D(2, 2))).isFalse();
-        assertThat(matrix.isOutside(new Coord2D(-1, 2))).isTrue();
-        assertThat(matrix.isOutside(new Coord2D(1, -1))).isTrue();
-        assertThat(matrix.isOutside(new Coord2D(1, 3))).isTrue();
-        assertThat(matrix.isOutside(new Coord2D(3, 1))).isTrue();
+        assertThat(matrix.isOutside(new Coord(0, 0))).isFalse();
+        assertThat(matrix.isOutside(new Coord(2, 2))).isFalse();
+        assertThat(matrix.isOutside(new Coord(-1, 2))).isTrue();
+        assertThat(matrix.isOutside(new Coord(1, -1))).isTrue();
+        assertThat(matrix.isOutside(new Coord(1, 3))).isTrue();
+        assertThat(matrix.isOutside(new Coord(3, 1))).isTrue();
     }
 }

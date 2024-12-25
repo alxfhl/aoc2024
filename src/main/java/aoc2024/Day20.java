@@ -1,7 +1,7 @@
 package aoc2024;
 
 import aoc2024.tools.CharMatrix;
-import aoc2024.tools.Coord2D;
+import aoc2024.tools.Coord;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -17,12 +17,12 @@ public class Day20 {
     @EqualsAndHashCode(onlyExplicitlyIncluded = true)
     static class Location {
         @EqualsAndHashCode.Include
-        Coord2D pos;
+        Coord pos;
         int toStart;
         Integer toEnd = null;
         List<Location> neighbors = new ArrayList<>(4);
 
-        public Location(Coord2D pos, int toStart) {
+        public Location(Coord pos, int toStart) {
             this.pos = pos;
             this.toStart = toStart;
         }
@@ -40,17 +40,17 @@ public class Day20 {
 
     public static long getPart2(List<String> lines, int cheatTimeLimit, int minSaving) {
         CharMatrix matrix = CharMatrix.valueOf(lines);
-        Coord2D start = matrix.indexOf('S');
-        Coord2D end = matrix.indexOf('E');
+        Coord start = matrix.indexOf('S');
+        Coord end = matrix.indexOf('E');
         matrix.set(start, '.');
         matrix.set(end, '.');
-        Map<Coord2D, Location> solution = solve(matrix, start, end);
+        Map<Coord, Location> solution = solve(matrix, start, end);
         return countCheats(solution, cheatTimeLimit, minSaving);
     }
 
-    private static Map<Coord2D, Location> solve(CharMatrix matrix, Coord2D start, Coord2D end) {
+    private static Map<Coord, Location> solve(CharMatrix matrix, Coord start, Coord end) {
         var todo = new PriorityQueue<>(comparing(Location::getToStart));
-        Map<Coord2D, Location> solution = new HashMap<>();
+        Map<Coord, Location> solution = new HashMap<>();
         Location startLocation = new Location(start, 0);
         solution.put(start, startLocation);
         todo.add(startLocation);
@@ -60,7 +60,7 @@ public class Day20 {
                 continue;
             }
             int toStart = location.getToStart() + 1;
-            for (Coord2D neighbor : location.getPos().getNeighbors()) {
+            for (Coord neighbor : location.getPos().getNeighbors()) {
                 if (matrix.get(neighbor) != '.') {
                     continue;
                 }
@@ -94,7 +94,7 @@ public class Day20 {
         return solution;
     }
 
-    private static long countCheats(Map<Coord2D, Location> solution, int cheatTimeLimit, int minSaving) {
+    private static long countCheats(Map<Coord, Location> solution, int cheatTimeLimit, int minSaving) {
         long count = 0;
         for (Location from : solution.values()) {
             int fromX = (int) from.getPos().x();
@@ -103,7 +103,7 @@ public class Day20 {
                 int distanceY = Math.abs(fromY - y);
                 int remaining = cheatTimeLimit - distanceY;
                 for (int x = fromX - remaining; x <= fromX + remaining; x++) {
-                    Location to = solution.get(new Coord2D(x, y));
+                    Location to = solution.get(new Coord(x, y));
                     if (to == null || to.getToStart() <= from.getToStart()) {
                         continue;
                     }
